@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:livekit_client/livekit_client.dart';
+import 'dart:typed_data';
+
 
 class CameraService {
    Room? room;
@@ -22,6 +26,7 @@ class CameraService {
     // }
     // Handle camera initialization errors
   }
+  
   
    Future<void> startVideoStream() async {
     
@@ -80,6 +85,25 @@ class CameraService {
   await cameraController.initialize();
   // setState(() {});
 }
+ Future<Uint8List> captureLastFrame() async {
+    if (!cameraController.value.isInitialized) {
+      throw 'Camera is not initialized';
+    }
+
+    try {
+      // Capturing the image from the camera
+      XFile imageFile = await cameraController.takePicture();
+
+      // Decoding the image file into bytes
+      Uint8List imageBytes = await File(imageFile.path).readAsBytes();
+      
+      return imageBytes;
+    } catch (e) {
+      print('Error capturing the last frame: $e');
+      throw 'Error capturing the last frame';
+    }
+  }
 
   // Other camera control methods
+  
 }
