@@ -32,11 +32,10 @@ class CameraService {
     
     if (room != null && room!.localParticipant != null) {
       try {
-        await room!.localParticipant!.setCameraEnabled(true);
+        await room!.localParticipant!.setCameraEnabled(true);// '!' null aware operator
         print('Video stream started');
       } catch (error) {
         print('Error starting video stream: $error');
-        // Handle errors or exceptions as needed
       }
     } else {
       print('Room or local participant not initialized');

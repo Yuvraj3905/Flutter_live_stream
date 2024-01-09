@@ -17,8 +17,8 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> {
 
   bool isStreaming = false;
   bool isPaused = false;
-  // Image? lastFrame; // Store the last captured frame as an Image
-  Uint8List? lastFrame;
+  Uint8List? lastFrame;//Store the Image
+
   @override
   void initState() {
     super.initState();
@@ -39,7 +39,6 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> {
         lastFrame = null; // Clear last frame when starting streaming
       });
     } else {
-      // Resume streaming if paused
       await cameraService.startVideoStream();
       setState(() {
         isStreaming = true;
@@ -71,17 +70,7 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> {
     });
 
   }
-  // Future<void> captureLastFrame() async {
-  //   // Logic to capture the last frame from the video stream using your CameraService
-  //   // Replace this logic with your actual implementation for capturing the last frame
-  //   // For example, if your CameraService provides a method to capture the last frame:
-  //   final imageBytes = await cameraService.captureLastFrame();
-  //   setState(() {
-  //     lastFrame = Image.memory(imageBytes);
-  //     isStreaming = false;
-  //   });
-  // }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
