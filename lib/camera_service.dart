@@ -50,7 +50,6 @@ class CameraService {
         print('Video stream stopped');
       } catch (error) {
         print('Error stopping video stream: $error');
-        // Handle errors or exceptions as needed
       }
     } else {
       print('Room or local participant not initialized');
@@ -58,13 +57,10 @@ class CameraService {
   }
 
  Future<void> switchCamera() async {
-  // Dispose the current camera controller
-  await cameraController.dispose();
+  await cameraController.dispose();//option to free up resources after the use of camera
 
-  // Get the list of available cameras
-  final cameras = await availableCameras();
+  final cameras = await availableCameras(); // Get the list of available cameras
 
-  // Find the new camera description based on the current camera's lens direction
   CameraDescription newCamera;
   if (cameraController.description.lensDirection == CameraLensDirection.back) {
     newCamera = cameras.firstWhere(
@@ -80,10 +76,10 @@ class CameraService {
     ResolutionPreset.medium,
   );
 
-  // Set the state after the new camera controller is initialized
   await cameraController.initialize();
-  // setState(() {});
+
 }
+
  Future<Uint8List> captureLastFrame() async {
     if (!cameraController.value.isInitialized) {
       throw 'Camera is not initialized';
@@ -103,6 +99,5 @@ class CameraService {
     }
   }
 
-  // Other camera control methods
   
 }
