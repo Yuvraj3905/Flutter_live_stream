@@ -3,7 +3,7 @@ import 'package:livekit_client/livekit_client.dart';
 const roomUrl =
     'wss://livevideo-8qkjkzuu.livekit.cloud'; // Replace with your room URL
 const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDQ3MTg3OTAsImlzcyI6IkFQSVFoRk5oRm54UGF5diIsIm5iZiI6MTcwNDcwOTc5MCwic3ViIjoiaGVoZXF3IiwidmlkZW8iOnsiY2FuUHVibGlzaCI6dHJ1ZSwiY2FuUHVibGlzaERhdGEiOnRydWUsImNhblN1YnNjcmliZSI6dHJ1ZSwicm9vbSI6IlRoZU9uZTEiLCJyb29tSm9pbiI6dHJ1ZX19.0T-ASXG18gKD7tahH0T3HHO7MO6jLu1tCLUtB8Rr7nQ';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDQ3OTQzMzksImlzcyI6IkFQSVFoRk5oRm54UGF5diIsIm5iZiI6MTcwNDc4NTMzOSwic3ViIjoiaGVsbCIsInZpZGVvIjp7ImNhblB1Ymxpc2giOnRydWUsImNhblB1Ymxpc2hEYXRhIjp0cnVlLCJjYW5TdWJzY3JpYmUiOnRydWUsInJvb20iOiJUaGVPbmUxIiwicm9vbUpvaW4iOnRydWV9fQ.i3JVhCTWYi7glFF3aQrtmK9M-82QLx4_uuBcekQeDxs';
 
 class LiveKitService {
   // LiveKitClient? client;

@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:livekit_client/livekit_client.dart';
+import 'package:streamer/broadcast.dart';
 import 'camera_preview_widget.dart';
 import 'livekit_service.dart';
 import 'camera_service.dart';
@@ -71,80 +72,159 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Live Video Streaming'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 300,
-              height: 200,
-              child: isPaused && lastFrame != null
-                  ? Image.memory(
-                      lastFrame!,
-                      width: 300,
-                      height: 200,
-                      fit: BoxFit.cover,
+  return Scaffold(
+    appBar: AppBar(
+      title: Text('Live Video Streaming'),
+    ),
+    body: Stack(
+      children: [
+        // Camera preview widget
+        Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: isPaused && lastFrame != null
+              ? Image.memory(
+                  lastFrame!,
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
+                )
+              : isStreaming
+                  ? CameraPreviewWidget(
+                      cameraController: cameraService.cameraController,
                     )
-                  : isStreaming
-                      ? CameraPreviewWidget(
-                          cameraController: cameraService.cameraController,
-                        )
-                      : Center(
-                          child: Text("Streaming Stopped"),
-                        ),
-            ),
-            // Space between video display and controls
-            SizedBox(height: 20),
-
-            // Video controls (start/stop stream, camera switch)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.play_arrow),
-                  onPressed: () {
-                    if (!isStreaming) {
-                      startStreaming();
-                    }
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.stop),
-                  onPressed: () {
-                    if (isStreaming) {
-                      stopStreaming();
-                    }
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.switch_camera),
-                  onPressed: () async {
-                    await cameraService.switchCamera();
-                    setState(() {});
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.pause),
-                  onPressed: () {
-                    if (isStreaming) {
-                      pauseStreaming();
-                    } else {
-                      Text("Streaming Stopped2");
-                    }
-                  },
-                  color: isStreaming ? null : Colors.grey,
-                ),
-              ],
-            ),
-          ],
+                  : Center(
+                      child: Text("Streaming Stopped"),
+                    ),
         ),
-      ),
-    );
-  }
+
+        // Video controls (start/stop stream, camera switch)
+        Positioned(
+          bottom: 20,
+          left: 0,
+          right: 0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: Icon(Icons.play_arrow),
+                onPressed: () {
+                  if (!isStreaming) {
+                    startStreaming();
+                  }
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.stop),
+                onPressed: () {
+                  if (isStreaming) {
+                    stopStreaming();
+                  }
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.switch_camera),
+                onPressed: () async {
+                  await cameraService.switchCamera();
+                  setState(() {});
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.pause),
+                onPressed: () {
+                  if (isStreaming) {
+                    pauseStreaming();
+                  } else {
+                    Text("Streaming Stopped2");
+                  }
+                },
+                color: isStreaming ? null : Colors.grey,
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+  
 }
 
+//A controlled window screen with definite viewport
 
+// Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Live Video Streaming'),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Container(
+//               width: 300,
+//               height: 200,
+//               child: isPaused && lastFrame != null
+//                   ? Image.memory(
+//                       lastFrame!,
+//                       width: 300,
+//                       height: 200,
+//                       fit: BoxFit.cover,
+//                     )
+//                   : isStreaming
+//                       ? CameraPreviewWidget(
+//                           cameraController: cameraService.cameraController,
+//                         )
+//                       : Center(
+//                           child: Text("Streaming Stopped"),
+//                         ),
+//             ),
+//             // Space between video display and controls
+//             SizedBox(height: 20),
+
+//             // Video controls (start/stop stream, camera switch)
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: [
+//                 IconButton(
+//                   icon: Icon(Icons.play_arrow),
+//                   onPressed: () {
+//                     if (!isStreaming) {
+//                       startStreaming();
+//                       // createLiveBroadcast();
+//                     }
+//                   },
+//                 ),
+//                 IconButton(
+//                   icon: Icon(Icons.stop),
+//                   onPressed: () {
+//                     if (isStreaming) {
+//                       stopStreaming();
+//                     }
+//                   },
+//                 ),
+//                 IconButton(
+//                   icon: Icon(Icons.switch_camera),
+//                   onPressed: () async {
+//                     await cameraService.switchCamera();
+//                     setState(() {});
+//                   },
+//                 ),
+//                 IconButton(
+//                   icon: Icon(Icons.pause),
+//                   onPressed: () {
+//                     if (isStreaming) {
+//                       pauseStreaming();
+//                     } else {
+//                       Text("Streaming Stopped2");
+//                     }
+//                   },
+//                   color: isStreaming ? null : Colors.grey,
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
