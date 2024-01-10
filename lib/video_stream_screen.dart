@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:livekit_client/livekit_client.dart';
 import 'package:streamer/broadcast.dart';
@@ -31,20 +30,28 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> {
     await cameraService.initializeCamera();
   }
 
+  bool isMuted = false;
+
+  void toggleMute() {
+    setState(() {
+      isMuted = !isMuted;
+    });
+  }
+
   Future<void> startStreaming() async {
     if (!isPaused) {
       await cameraService.startVideoStream();
       setState(() {
         isStreaming = true;
         isPaused = false;
-        lastFrame = null; // Clear last frame when starting streaming
+        lastFrame = null;
       });
     } else {
       await cameraService.startVideoStream();
       setState(() {
         isStreaming = true;
         isPaused = false;
-        lastFrame = null; // Clear last frame when resuming streaming
+        lastFrame = null;
       });
     }
   }
@@ -61,9 +68,7 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> {
     setState(() {
       isPaused = true;
     });
-    // Capture the last frame when paused
     lastFrame = await cameraService.captureLastFrame();
-    // Stop the video stream
     await cameraService.stopVideoStream();
     setState(() {
       isStreaming = false;
@@ -72,82 +77,88 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> {
 
   @override
   Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text('Live Video Streaming'),
-    ),
-    body: Stack(
-      children: [
-        // Camera preview widget
-        Container(
-          width: double.infinity,
-          height: double.infinity,
-          child: isPaused && lastFrame != null
-              ? Image.memory(
-                  lastFrame!,
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
-                )
-              : isStreaming
-                  ? CameraPreviewWidget(
-                      cameraController: cameraService.cameraController,
-                    )
-                  : Center(
-                      child: Text("Streaming Stopped"),
-                    ),
-        ),
-
-        // Video controls (start/stop stream, camera switch)
-        Positioned(
-          bottom: 20,
-          left: 0,
-          right: 0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: Icon(Icons.play_arrow),
-                onPressed: () {
-                  if (!isStreaming) {
-                    startStreaming();
-                  }
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.stop),
-                onPressed: () {
-                  if (isStreaming) {
-                    stopStreaming();
-                  }
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.switch_camera),
-                onPressed: () async {
-                  await cameraService.switchCamera();
-                  setState(() {});
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.pause),
-                onPressed: () {
-                  if (isStreaming) {
-                    pauseStreaming();
-                  } else {
-                    Text("Streaming Stopped2");
-                  }
-                },
-                color: isStreaming ? null : Colors.grey,
-              ),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Live Video Streaming'),
+      ),
+      body: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: isPaused && lastFrame != null
+                ? Image.memory(
+                    lastFrame!,
+                    width: double.infinity,
+                    height: double.infinity,
+                    fit: BoxFit.cover,
+                  )
+                : isStreaming
+                    ? CameraPreviewWidget(
+                        cameraController: cameraService.cameraController,
+                      )
+                    : Center(
+                        child: Text("Streaming Stopped"),
+                      ),
           ),
-        ),
-      ],
-    ),
-  );
-}
-  
+
+          // Video controls (start/stop stream, camera switch)
+          Positioned(
+            bottom: 20,
+            left: 0,
+            right: 0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.play_arrow),
+                  color: Colors.green,
+                  onPressed: () {
+                    if (!isStreaming) {
+                      startStreaming();
+                    }
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.stop),
+                  color: Colors.red,
+                  onPressed: () {
+                    if (isStreaming) {
+                      stopStreaming();
+                    }
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.switch_camera),
+                  onPressed: () async {
+                    await cameraService.switchCamera();
+                    setState(() {});
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.pause),
+                  onPressed: () {
+                    if (isStreaming) {
+                      pauseStreaming();
+                    } else {
+                      Text("Streaming Stopped2");
+                    }
+                  },
+                  color: isStreaming ? null : Colors.grey,
+                ),
+                IconButton(
+                  icon: Icon(isMuted ? Icons.mic_off : Icons.mic),
+                  onPressed: () {
+                    toggleMute();
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 //A controlled window screen with definite viewport
