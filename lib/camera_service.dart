@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:camera/camera.dart';
 import 'package:livekit_client/livekit_client.dart';
 import 'dart:typed_data';
@@ -24,7 +23,6 @@ class CameraService {
     // }catch(error){
     //   print("Error Initializing the camera $error");
     // }
-    // Handle camera initialization errors
   }
   
   
