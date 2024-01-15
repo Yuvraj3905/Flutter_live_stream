@@ -28,6 +28,7 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> {
   Future<void> initializeServices() async {
     await liveKitService.initializeLiveKit();
     await cameraService.initializeCamera();
+    // await cameraService.initializeCameras();
   }
 
   bool isMuted = false;
@@ -83,6 +84,18 @@ class _VideoStreamScreenState extends State<VideoStreamScreen> {
       ),
       body: Stack(
         children: [
+      //        CameraPreviewWidget(
+      //   cameraController: cameraService.frontCameraController,
+      // ),
+
+      // // Space between camera views
+      // SizedBox(height: 20),
+
+      // // Camera preview widget for back camera
+      // CameraPreviewWidget(
+      //   cameraController: cameraService.backCameraController,
+      // ),
+
           Container(
             width: double.infinity,
             height: double.infinity,

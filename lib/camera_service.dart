@@ -7,6 +7,25 @@ import 'dart:typed_data';
 class CameraService {
    Room? room;
   late CameraController cameraController;
+  //  CameraController? frontCameraController;
+  // CameraController? backCameraController;
+
+  // Future<void> initializeCameras() async {
+
+  //   final cameras = await availableCameras();
+
+  //   frontCameraController = CameraController(
+  //     cameras[0],
+  //     ResolutionPreset.medium,
+  //   );
+  //   await frontCameraController!.initialize();
+
+  //   backCameraController = CameraController(
+  //     cameras[1],
+  //     ResolutionPreset.medium,
+  //   );
+  //   await backCameraController!.initialize();
+  // }
 
   Future<void> initializeCamera() async {
      final cameras = await availableCameras();
@@ -27,7 +46,7 @@ class CameraService {
   
   
    Future<void> startVideoStream() async {
-    
+    await cameraController.initialize();
     if (room != null && room!.localParticipant != null) {
       try {
         await room!.localParticipant!.setCameraEnabled(true);// '!' null aware operator

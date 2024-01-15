@@ -10,6 +10,28 @@ void main() async {
   runApp(MyApp());
 }
 
+class StartScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Start Streaming'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => VideoStreamScreen()),
+            );
+          },
+          child: Text('Start Streaming'),
+        ),
+      ),
+    );
+  }
+}
+
 Future<void> _checkPermissions() async {
   var cameraStatus = await Permission.camera.request();
   var microphoneStatus = await Permission.microphone.request();
@@ -22,6 +44,7 @@ Future<void> _checkPermissions() async {
   }
 }
 
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -30,7 +53,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: VideoStreamScreen(),
+       home: StartScreen(),
     );
   }
 }
