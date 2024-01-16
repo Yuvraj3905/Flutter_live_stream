@@ -1,8 +1,7 @@
 import 'package:livekit_client/livekit_client.dart';
-
 const roomUrl = 'wss://livevideo-8qkjkzuu.livekit.cloud';
 const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDUwNTQ2NjMsImlzcyI6IkFQSVFoRk5oRm54UGF5diIsIm5iZiI6MTcwNTA0NTY2Mywic3ViIjoiaGVsbCIsInZpZGVvIjp7ImNhblB1Ymxpc2giOnRydWUsImNhblB1Ymxpc2hEYXRhIjp0cnVlLCJjYW5TdWJzY3JpYmUiOnRydWUsInJvb20iOiJUaGVPbmUxIiwicm9vbUpvaW4iOnRydWV9fQ.6JM4ZizyHJ2I1dUuSz8oX4BA-BhdPSUM8t1XzWYOCJw';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDUzODkzMzgsImlzcyI6IkFQSVFoRk5oRm54UGF5diIsIm5iZiI6MTcwNTM4ODQzOCwic3ViIjoiaGVsbCIsInZpZGVvIjp7ImNhblB1Ymxpc2giOnRydWUsImNhblB1Ymxpc2hEYXRhIjp0cnVlLCJjYW5TdWJzY3JpYmUiOnRydWUsInJvb20iOiJUaGVPbmUxIiwicm9vbUpvaW4iOnRydWV9fQ.ROGycZRGDz8_GT0RCYGRKZlOHYa5G3LugWWv7aOekkI';
 
 class LiveKitService {
   Room? room;
@@ -18,7 +17,6 @@ class LiveKitService {
       }
     } catch (error) {
       print('Error connecting to room: $error');
-      // Handle connection errors
     }
   }
 }
