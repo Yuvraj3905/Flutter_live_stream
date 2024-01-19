@@ -14,13 +14,6 @@ To get started with this project, follow these steps:
     - Replace placeholders in `livekit_service.dart` with your actual LiveKit room URL and token.
     - Ensure proper initialization of LiveKit and camera services in `livekit_service.dart` and `camera_service.dart`.
 
-4. **Choose Streaming Platform**:
-    - Select a streaming platform (e.g., YouTube Live, Twitch, etc.) to integrate broadcasting.
-    - Follow their documentation to obtain required API keys or credentials.
-
-5. **Integrate Streaming Platform**:
-    - Use the appropriate SDK or API provided by the selected streaming platform.
-    - Modify the code in `video_stream_screen.dart` to integrate with the platform for broadcasting.
 
 ## Features
 
